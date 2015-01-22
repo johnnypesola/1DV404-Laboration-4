@@ -63,6 +63,47 @@
 			// Check that event is an object of right type.
 			if(eventObj !== null && eventObj instanceof Event){
 
+                // Check that event does not start before this competition
+                if (eventObj.startTime < this.startTime) {
+                    throw new Error("ERROR: Event.startTime cannot be less than Competition.startTime");
+
+                // Check that the event does not end after this competition
+                } else if (eventObj.endTime > this.endTime) {
+
+                    throw new Error("ERROR: Event.endTime cannot be higher than Competition.endTime");
+
+                // Check that the event does not have missing properties
+                } else if (
+                    eventObj.gymnasticsType == "" ||
+                    eventObj.participantsType == "" ||
+                    eventObj.participantsGender == "" ||
+                    eventObj.isIndividual == "" ||
+                    eventObj.isAllRound == "" ||
+                    eventObj.judgesArray.length === 0
+                ) {
+                    throw new Error("ERROR: Event object has missing properties");
+                }
+
+                // Check if an identical event exists in the competition or if judge will be double booked
+                this.eventsArray.forEach(function(event) {
+
+                    // Check identical
+                    if (event == eventObj) {
+
+                        console.log(event);
+                        throw new Error("ERROR: Identical Event allready exists in Competition object.")
+                    }
+
+                    // Check if the judge will be double booked
+                    event.judgesArray.forEach(function (judgeObj) {
+                        eventObj.judgesArray.forEach(function (newJudgeObj) {
+                            if (judgeObj === newJudgeObj) {
+                                throw new Error("ERROR: Registered Judge is busy over this period of time.");
+                            }
+                        });
+                    });
+                });
+
 				// Add event to array of events
 				this.eventsArray.push(eventObj);
 
@@ -70,6 +111,10 @@
 				eventObj.notifyJudges();
 			}
     	},
+
+        checkEvent: function(eventObj) {
+
+        },
 
     	save: function(){ // Not implemented
 

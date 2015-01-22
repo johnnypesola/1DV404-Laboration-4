@@ -170,5 +170,10 @@
     	},
 		sendSms: function(phoneNumber){ // Not implemented
 			//console.log("SMS sent to: " + phoneNumber);
-    	}
+    	},
+
+        toString: function() {
+            return this.startTime + this.endTime + this.gymnasticsType + this.participantsType + this.participantsGender + this.isIndividual + this.isAllRound + JSON.stringify(this.judgesArray);
+        }
+
     };

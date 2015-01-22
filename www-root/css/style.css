@@ -1,8 +1,97 @@
 body {
-	font-family: 'Arial';
+    font-family: 'Open Sans', sans-serif;
+    color: #666666;
+    text-align: center;
+
+
+    background: #a0a0a0; /* Old browsers */
+    background: -moz-linear-gradient(top,  #a0a0a0 0%, #949494 48%, #787878 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#a0a0a0), color-stop(48%,#949494), color-stop(100%,#787878)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  #a0a0a0 0%,#949494 48%,#787878 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  #a0a0a0 0%,#949494 48%,#787878 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  #a0a0a0 0%,#949494 48%,#787878 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  #a0a0a0 0%,#949494 48%,#787878 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a0a0a0', endColorstr='#787878',GradientType=0 ); /* IE6-9 */
+
+    height: 100vh;
 }
 
 h1 {
 	font-size: 20px;
 	margin: 20px;
 }
+
+img.logo {
+    position: absolute;
+    top: 30px;
+    left: 144px;
+}
+
+div.container {
+    position: relative;
+    width: 800px;
+    margin: 50px auto;
+    padding: 100px 0 0 0;
+    background: #eeeeee;
+    min-height: 300px;
+
+    box-shadow: 0 3px 5px #666666;
+
+    border-radius: 5px;
+    text-align: left;
+}
+
+    div.container div.content {
+        margin: 20px;
+    }
+
+    div.container h1 {
+        font-size: 22px;
+        text-shadow: 1px 1px 0px rgba(150, 150, 150, 1);
+        border-bottom: 1px solid #dddddd;
+        margin: 0 0 20px 0;
+        padding: 0 0 10px 0;
+    }
+
+    div.container .float-right {
+        float: right;
+    }
+
+    div.container .float-left {
+        float: left;
+    }
+
+    div.container .white-box {
+        width: 340px;
+        background: #ffffff;
+        display: inline-block;
+        margin: 0;
+        padding: 10px 15px;
+        border-radius: 3px;
+        border: 1px solid #dddddd;
+        box-shadow: 0 2px 3px #dddddd;
+    }
+
+        div.container form input, div.container form textarea, div.container form select, div.container form button {
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        div.container .white-box h3 {
+            font-size: 16px;
+            border-bottom: 1px dotted #dddddd;
+            margin: 0 0 10px 0;
+            padding: 0 0 10px 0;
+        }
+
+        div.container form button {
+            float: right;
+            margin: 10px 0 0 0;
+            background: #eeeeee;
+            border: 1px solid #cccccc;
+            border-radius: 2px;
+            cursor: pointer;
+        }
+
+            div.container form button:hover {
+                background: #ddddff;
+            }

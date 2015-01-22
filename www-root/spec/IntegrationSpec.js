@@ -53,12 +53,12 @@ describe("Integration", function() {
 
 		// Create Competition and Event objects
 		myCompetition = new Competition(values.construct.startTime, values.construct.endTime);
-		myEvent = new Event(values.construct.startTime, values.construct.lateEndTime);
+		myEvent = new Event(values.construct.startTime, values.construct.endTime);
 
 		expect(function(){
 							myCompetition.addEvent(myEvent);
 						}).toThrow(
-							new Error()
+							new Error("ERROR: Event object has missing properties")
 						);
 	});
 
