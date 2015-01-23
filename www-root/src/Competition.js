@@ -74,21 +74,21 @@
 
                 // Check that the event does not have missing properties
                 } else if (
-                    eventObj.gymnasticsType == "" ||
-                    eventObj.participantsType == "" ||
-                    eventObj.participantsGender == "" ||
-                    eventObj.isIndividual == "" ||
-                    eventObj.isAllRound == "" ||
+                    eventObj.gymnasticsType === "" ||
+                    eventObj.participantsType === "" ||
+                    eventObj.participantsGender === "" ||
+                    eventObj.isIndividual === "" ||
+                    eventObj.isAllRound === "" ||
                     eventObj.judgesArray.length === 0
                 ) {
-                    throw new Error("ERROR: Event object has missing properties");
+                    throw new Error("ERROR: Event object has missing properties.");
                 }
 
                 // Check if an identical event exists in the competition or if judge will be double booked
                 this.eventsArray.forEach(function(event) {
 
                     // Check identical
-                    if (event == eventObj) {
+                    if (event.toString() === eventObj.toString()) {
 
                         console.log(event);
                         throw new Error("ERROR: Identical Event allready exists in Competition object.")
@@ -97,7 +97,7 @@
                     // Check if the judge will be double booked
                     event.judgesArray.forEach(function (judgeObj) {
                         eventObj.judgesArray.forEach(function (newJudgeObj) {
-                            if (judgeObj === newJudgeObj) {
+                            if (JSON.stringify(judgeObj) === JSON.stringify(newJudgeObj)) {
                                 throw new Error("ERROR: Registered Judge is busy over this period of time.");
                             }
                         });

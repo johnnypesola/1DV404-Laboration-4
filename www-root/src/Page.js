@@ -13,7 +13,8 @@ function Page() {
         _competitionContainerElement,
         _competitionSelectElement,
         _addJudgeButtonElement,
-        _judgeContainerElement;
+        _judgeContainerElement,
+        _eventContainerElement;
 
     // Properties with Getters and Setters
     Object.defineProperties(this, {
@@ -87,6 +88,16 @@ function Page() {
                     throw new Error("ERROR: judgeContainerElement must be an element");
                 }
             }
+        },
+        "eventContainerElement": {
+            get: function() { return _eventContainerElement || "";},
+            set: function(value) {
+                if(value.nodeName) {
+                    _eventContainerElement = value;
+                } else {
+                    throw new Error("ERROR: eventContainerElement must be an element");
+                }
+            }
         }
     });
 
@@ -98,6 +109,7 @@ function Page() {
     this.addEventFormElement = document.getElementById("addEventForm");
     this.addJudgeButtonElement = document.getElementById("add-judge-button");
     this.judgeContainerElement = document.getElementById("judge-container-element");
+    this.eventContainerElement = document.getElementById("event-container");
 
     // Methods
     this.addCompetitionFunctionality = function () {
@@ -252,8 +264,14 @@ function Page() {
                 formElement.elements['end-minute'].value + ":00"
             );
 
-            // Check that all input is corrent
-            that.checkAddEventFormInput(formElement);
+
+            // Check that all input is correct
+            try {
+                that.checkAddEventFormInput(formElement)
+            } catch (error) {
+                alert(error);
+                return false;
+            }
 
             // Parse Judges array
             if(formElement.elements['judge-name'].length) {
@@ -273,6 +291,14 @@ function Page() {
                 });
             }
 
+            // Check that all judges array input is correct
+            try {
+                that.checkJudgesArray(judgesArray)
+            } catch (error) {
+                alert(error);
+                return false;
+            }
+
             // Create new Event object
             eventObj = new Event(
                 startDate.getTime(),
@@ -286,21 +312,138 @@ function Page() {
             );
 
             // Create new event in competition
-            //that.competitionsArray.push(new Competition(startDate.getTime(), endDate.getTime()));
+            try {
+                that.competitionsArray[formElement['competitions-select'].value].addEvent(eventObj);
+            } catch (error) {
+                alert(error);
+                return false;
+            }
 
             // Render competitions
-            //that.renderCompetitions();
+            that.renderEvents();
 
+        });
+    };
+
+    this.renderEvents = function () {
+        var competitionContainer,
+            eventContainer,
+            judgesContainer,
+            that = this;
+
+        // Clear container element
+        this.eventContainerElement.innerHTML = "";
+
+        // Show container element with header
+        this.eventContainerElement.parentNode.classList.remove("hidden");
+
+        this.competitionsArray.forEach(function(competitionObj) {
+
+            competitionContainer = document.createElement("div");
+            competitionContainer.classList.add("competition-container");
+
+            // Append text to competition container
+            competitionContainer.innerHTML = competitionObj.startTime.toCustomString() + " &#8594; " + competitionObj.endTime.toCustomString();
+
+            competitionObj.eventsArray.forEach(function(eventObj) {
+
+                eventContainer = document.createElement("div");
+                eventContainer.classList.add("event-container");
+
+                judgesContainer = document.createElement("div");
+
+                eventObj.judgesArray.forEach(function(judgeObj){
+                    judgesContainer.innerHTML += judgeObj.name + ", ";
+                });
+
+                eventContainer.innerHTML = eventObj.startTime.toCustomString() + " &#8594; " + eventObj.endTime.toCustomString()
+                    + "<br>Tävlingsgren: <span>" + eventObj.gymnasticsType + "</span>"
+                    + "<br>Junior/Senior: <span>" + eventObj.participantsType + "</span>"
+                    + "<br>Kön: <span>" + eventObj.participantsGender + "</span>"
+                    + "<br>Individuell: <span>" + (eventObj.isIndividual === true ? "Ja" : "Nej") + "</span>"
+                    + "<br>Allround: <span>" + (eventObj.isAllRound === true ? "Ja" : "Nej") + "</span>"
+                    + "<br>Domare: <span>" + judgesContainer.innerHTML  + "</span>";
+
+                // startTime, endTime, gymnasticsType, participantsType, participantsGender, isIndividual, isAllRound, judgesArray
+
+                competitionContainer.appendChild(eventContainer);
+            });
+
+            // Append competition container to eventcontainer element
+            that.eventContainerElement.appendChild(competitionContainer);
         });
     };
 
     this.checkAddEventFormInput = function (formElement) {
 
-        // Check gymnastics type
+        // Check values
         if (formElement.elements['gymnastics-type'].value === "") {
-            alert("Var god ange tävlingsgren");
             formElement.elements['gymnastics-type'].focus();
+            throw new Error("Missing value: gymnastics type.");
         }
+
+        if (formElement.elements['participants-type'].value === "") {
+            formElement.elements['participants-type'].focus();
+            throw new Error("Missing value: participants type");
+        }
+
+        if (formElement.elements['participants-gender'].value === "") {
+            formElement.elements['participants-gender'].focus();
+            throw new Error("Missing value: participants gender");
+        }
+
+        if (formElement.elements['is-individual'].value === "") {
+            formElement.elements['is-individual'].focus();
+            throw new Error("Missing value: is individual");
+        }
+
+        if (formElement.elements['is-allround'].value === "") {
+            formElement.elements['is-allround'].focus();
+            throw new Error("Missing value: is allround");
+        }
+
+        if (formElement.elements['is-allround'].value === "") {
+            formElement.elements['is-allround'].focus();
+            throw new Error("Missing value: is allround");
+        }
+
+        if(!formElement.elements['judge-name']) {
+            throw new Error("Missing value: judge");
+        }
+
+    };
+
+    this.checkJudgesArray = function (judgesArray) {
+        // Judges array
+        if (!(judgesArray instanceof Array)) {
+            throw new Error("Judges array must be an array");
+        }
+
+        judgesArray.forEach(function(judgeObj) {
+            // Check name
+            if(!(judgeObj.name)) {
+                throw new Error("Judge object must contain a name property");
+            } else if(judgeObj.name.length < 2) {
+                throw new Error("Judge name must be at least 2 chars long");
+            }
+
+            // Check if email or sms exists
+            if(!(judgeObj.email) && !(judgeObj.sms)) {
+                throw new Error("Judge object must contain a email or sms property");
+
+            } else if (judgeObj.email && judgeObj.email.length < 2) {
+                throw new Error("Judge email must be at least 2 chars long");
+
+            } else if (judgeObj.email && !validateEmail(judgeObj.email)) {
+                throw new Error("Judge email must be a valid email adress");
+
+            } else if (judgeObj.sms && judgeObj.sms.length < 2) {
+                throw new Error("Judge phone number must be at least 2 chars long");
+
+            } else if (judgeObj.sms && !isNumeric(judgeObj.sms)) {
+                throw new Error("Judge phone number be a valid phone number");
+            }
+        });
     };
 
     this.addJudgeButtonFunctionality = function (){

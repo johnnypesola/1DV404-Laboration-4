@@ -175,7 +175,7 @@
     	},
 
         toString: function() {
-            return this.startTime + this.endTime + this.gymnasticsType + this.participantsType + this.participantsGender + this.isIndividual + this.isAllRound + JSON.stringify(this.judgesArray);
+            return "startTime: " + this.startTime + " endTime: " + this.endTime + " gymnasticsType: " + this.gymnasticsType + " pacticipantsType: " + this.participantsType + " participantsGender: " + this.participantsGender + " isIndividual: " + this.isIndividual + " isAllRound: " + this.isAllRound + " judges: " + JSON.stringify(this.judgesArray);
         }
 
     };
