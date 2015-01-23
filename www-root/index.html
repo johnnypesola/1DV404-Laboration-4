@@ -3,9 +3,10 @@
     <head>
         <meta charset="utf-8"/>
 
+        <script type="text/javascript" src="src/extensions.js"></script>
         <script type="text/javascript" src="src/Competition.js"></script>
         <script type="text/javascript" src="src/Event.js"></script>
-        <script type="text/javascript" src="src/InitFunctionality.js"></script>
+        <script type="text/javascript" src="src/Page.js"></script>
         <script type="text/javascript" src="src/main.js"></script>
 
         <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
@@ -82,7 +83,7 @@
             <div class="content">
                 <h1>Skapa deltävling</h1>
 
-                <form id="addEventForm" class="white-box float-left">
+                <form id="addEventForm" class="white-box float-left hidden">
 
                     <h3>Skapa deltävling</h3>
 
@@ -131,7 +132,34 @@
                     <select name="end-minute">
                     </select>
 
+                    <br><br>
+
+                    Tävlingsgren:
+                    <input type="text" name="gymnastics-type">
+
+                    <br><br>
+
+                    Junior<input type="radio" name="participants-type" value="junior" checked="checked">
+                    Senior<input type="radio" name="participants-type" value="Senior">
                     <br>
+                    Män<input type="radio" name="participants-gender" value="male" checked="checked">
+                    Kvinnor<input type="radio" name="participants-gender" value="female">
+                    <br>
+                    <br>
+
+                    Individuell tävling:
+                    <input type="checkbox" name="is-individual">
+                    <br>
+
+                    Allround tävling:
+                    <input type="checkbox" name="is-allround">
+                    <br>
+
+                    <br>
+                    Domare:
+                    <a id="add-judge-button" href="#">Lägg till</a>
+
+                    <div id="judge-container-element"></div>
 
                     <button name="submit">Skapa</button>
 

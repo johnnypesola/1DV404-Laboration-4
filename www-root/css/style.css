@@ -26,6 +26,10 @@ div.clear-fix {
     clear: both;;
 }
 
+.hidden {
+    display: none !important;
+}
+
 img.logo {
     position: absolute;
     top: 30px;
@@ -99,4 +103,14 @@ div.container {
 
             div.container form button:hover {
                 background: #ddddff;
+            }
+
+        div.container #judge-container-element {
+            font-size: 12px;
+            line-height: 30px;
+        }
+
+            div.container #judge-container-element div {
+                border-top: 1px solid #cccccc;
+                padding: 5px 0;
             }

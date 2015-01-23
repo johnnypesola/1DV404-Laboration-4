@@ -17,6 +17,10 @@
 
 		*/
 
-        addCompetitionFunctionality();
+        var pageObj = new Page();
+
+        pageObj.addCompetitionFunctionality();
+
+        pageObj.addEventFunctionality();
 
 	};

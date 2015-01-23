@@ -107,6 +107,8 @@
 	            set: function(value){
 	                if(value !== null && value instanceof Array){
 	                    _judgesArray = value;
+
+                        console.log(value);
 	                }
 	                else{
 	                    throw new Error("ERROR: judgesArray must be an array");
