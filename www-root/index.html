@@ -3,6 +3,11 @@
     <head>
         <meta charset="utf-8"/>
 
+        <script type="text/javascript" src="src/Competition.js"></script>
+        <script type="text/javascript" src="src/Event.js"></script>
+        <script type="text/javascript" src="src/InitFunctionality.js"></script>
+        <script type="text/javascript" src="src/main.js"></script>
+
         <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 
         <link rel="stylesheet" href="css/style.css">
@@ -21,44 +26,119 @@
                 <h1>Skapa tävlingstillfälle</h1>
 
 
-                <form class="white-box float-left">
+                <form id="addCompetitionForm" class="white-box float-left">
 
                     <h3>Skapa tävlingstillfälle</h3>
-                    Ange datum:
-                    <select>
-                        <option>2012</option>
+                    Startdatum:
+                    <select name="start-year">
                     </select>
 
-                    <select>
-                        <option>10</option>
+                    <select name="start-month">
                     </select>
 
-                    <select>
-                        <option>24</option>
+                    <select name="start-day">
                     </select>
 
                     <br>
 
                     Starttid:
-                    <select>
-                        <option>10.15</option>
+                    <select name="start-hour">
+                    </select>
+                    <select name="start-minute">
                     </select>
 
-                    Sluttid:
-                    <select>
-                        <option>20.15</option>
+                    <br><br>
+
+                    Slutdatum:
+                    <select name="end-year">
+                    </select>
+
+                    <select name="end-month">
+                    </select>
+
+                    <select name="end-day">
                     </select>
 
                     <br>
 
-                    <button>Skapa</button>
+                    Sluttid:
+                    <select name="end-hour">
+                    </select>
+                    <select name="end-minute">
+                    </select>
+
+                    <br>
+
+                    <button name="submit">Skapa</button>
 
                 </form>
 
                 <div class="white-box float-right">
                     <h3>Tävlingstillfällen</h3>
-                    Inga tävlingstillfällen hittade.
+                    <div id="competition-container"></div>
                 </div>
+                <div class="clear-fix"></div>
+            </div>
+            <div class="content">
+                <h1>Skapa deltävling</h1>
+
+                <form id="addEventForm" class="white-box float-left">
+
+                    <h3>Skapa deltävling</h3>
+
+                    Välj tävlingstillfälle
+                    <select id="competitions-select" name="competition-objects">
+                    </select>
+
+                    <br><br>
+
+                    Startdatum:
+
+                    <select name="start-year">
+                    </select>
+
+                    <select name="start-month">
+                    </select>
+
+                    <select name="start-day">
+                    </select>
+
+                    <br>
+
+                    Starttid:
+                    <select name="start-hour">
+                    </select>
+                    <select name="start-minute">
+                    </select>
+
+                    <br><br>
+
+                    Slutdatum:
+                    <select name="end-year">
+                    </select>
+
+                    <select name="end-month">
+                    </select>
+
+                    <select name="end-day">
+                    </select>
+
+                    <br>
+
+                    Sluttid:
+                    <select name="end-hour">
+                    </select>
+                    <select name="end-minute">
+                    </select>
+
+                    <br>
+
+                    <button name="submit">Skapa</button>
+
+                </form>
+
+                <div class="clear-fix"></div>
+
             </div>
         </div>
     </body>

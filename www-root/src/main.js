@@ -1,7 +1,8 @@
-"use strict"
+"use strict";
 
 	window.onload = function(){
 
+        /*
 		var startTime = new Date(2014, 12, 24).getTime(),
 			endTime = new Date(2014, 12, 28).getTime(),
 			myCompetition = new Competition(startTime, endTime),
@@ -13,4 +14,9 @@
 		myCompetition.addEvent(myEvent);
 
 		console.log(typeof "fisk23" === "boolean")
-	}
+
+		*/
+
+        addCompetitionFunctionality();
+
+	};

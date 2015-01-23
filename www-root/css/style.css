@@ -13,12 +13,17 @@ body {
     background: linear-gradient(to bottom,  #a0a0a0 0%,#949494 48%,#787878 100%); /* W3C */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a0a0a0', endColorstr='#787878',GradientType=0 ); /* IE6-9 */
 
-    height: 100vh;
+    height: 100%;
+    background-repeat: no-repeat;
 }
 
 h1 {
 	font-size: 20px;
 	margin: 20px;
+}
+
+div.clear-fix {
+    clear: both;;
 }
 
 img.logo {
@@ -31,7 +36,7 @@ div.container {
     position: relative;
     width: 800px;
     margin: 50px auto;
-    padding: 100px 0 0 0;
+    padding: 100px 0 20px 0;
     background: #eeeeee;
     min-height: 300px;
 
@@ -48,9 +53,9 @@ div.container {
     div.container h1 {
         font-size: 22px;
         text-shadow: 1px 1px 0px rgba(150, 150, 150, 1);
-        border-bottom: 1px solid #dddddd;
-        margin: 0 0 20px 0;
-        padding: 0 0 10px 0;
+        border-top: 2px solid#e5e5e5;
+        margin: 40px 0 20px 0;
+        padding: 15px 0 0 15px;
     }
 
     div.container .float-right {
