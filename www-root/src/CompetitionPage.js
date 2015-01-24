@@ -4,7 +4,19 @@
 
 "use strict";
 
-function Page() {
+
+window.onload = function(){
+
+    var pageObj = new CompetitionPage();
+
+    pageObj.addCompetitionFunctionality();
+
+    pageObj.addEventFunctionality();
+
+};
+
+
+function CompetitionPage() {
 
     var _competitionsArray = [],
         _addCompetitionFormElement,

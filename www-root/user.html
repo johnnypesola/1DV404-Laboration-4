@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="sv">
+    <head>
+        <meta charset="utf-8"/>
+
+        <script type="text/javascript" src="src/extensions.js"></script>
+        <script type="text/javascript" src="lib/cryptojs/rollups/sha256.js"></script>
+        <script type="text/javascript" src="src/User.js"></script>
+        <script type="text/javascript" src="src/UserPage.js"></script>
+
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+
+        <link rel="stylesheet" href="css/style.css">
+
+        <title>Gymnastiksystemet</title>
+        <!--
+            Author: Johnny Pesola
+            Date: @2014-01-22
+        -->
+    </head>
+    <body>
+    <div class="container">
+        <img class="logo" src="img/logo.png">
+
+        <div class="content">
+            <h1>Lägg till användare</h1>
+
+            <form id="addUserForm" class="white-box float-left">
+
+                <h3>Ange användaruppgifter</h3>
+                Användartyp:
+                <select name="type">
+                    <option value="user">Användare</option>
+                    <option value="judge">Domare</option>
+                    <option value="administrator">Administratör</option>
+                </select>
+
+                <br>
+
+                Förnamn:
+                <input type="text" name="firstname">
+                <br>
+                Efternamn:
+                <input type="text" name="surname">
+                <br>
+                <br>
+                Användarnamn:
+                <input type="text" name="username">
+                <br>
+                Lösenord:
+                <input type="password" name="password">
+                <br>
+                <br>
+                E-post adress:
+                <input type="text" name="email">
+                <br>
+                Mobiltelefon nummer:
+                <input type="text" name="cellphone">
+
+                <br>
+                <br>
+
+                <button name="submit">Skapa användare</button>
+
+            </form>
+
+            <div class="white-box float-right">
+                <h3>Befintliga användare</h3>
+                <div id="user-container"></div>
+            </div>
+            <div class="clear-fix"></div>
+        </div>
+        <div class="content">
+            <h1>Redigera användare</h1>
+
+            <form id="editUserForm" class="white-box float-left hidden">
+
+            </form>
+        </div>
+    </div>
+    </body>
+</html>

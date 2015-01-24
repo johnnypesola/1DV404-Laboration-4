@@ -134,3 +134,17 @@ div.container {
                 div.container .competition-container .event-container span {
                     font-weight: bold;
                 }
+
+            div.container #user-container a {
+
+                display: block;
+                float: left;
+                clear: both;
+
+                font-size: 13px;
+                background: #f9f9ff;
+                border: 1px solid #d8d8e8;
+                border-radius: 4px;
+                margin: 3px;
+                padding: 5px 10px;
+            }

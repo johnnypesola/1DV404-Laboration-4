@@ -1,4 +1,4 @@
-"use strict"
+"use strict";
 
 	function Event(startTime, endTime, gymnasticsType, participantsType, participantsGender, isIndividual, isAllRound, judgesArray){
 

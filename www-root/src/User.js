@@ -1,19 +1,72 @@
 "use strict";
 
-function User(username, password, email, cellphone){
+function User (firstname, surname, type, username, password, email, cellphone){
 
-    var _username,
+    var _firstname,
+        _surname,
+        _type,
+        _username,
         _password,
         _email,
         _cellphone;
 
     // Properties with Getters and Setters
     Object.defineProperties(this, {
+        "firstname": {
+            get: function(){ return _firstname || ""; },
+
+            set: function(value){
+                if(value.length >= 2){
+
+                    _firstname = value;
+
+                } else{
+                    throw new Error("ERROR: the firstname must be at least 2 chars in length.");
+                }
+            }
+        },
+        "surname": {
+            get: function(){ return _surname || ""; },
+
+            set: function(value){
+                if(value.length >= 2){
+
+                    _surname = value;
+
+                } else{
+                    throw new Error("ERROR: the surname must be at least 2 chars in length.");
+                }
+            }
+        },
+        "type": {
+            get: function(){ return _type || ""; },
+
+            set: function(value){
+
+                switch(value) {
+                    case "administrator":
+                        break;
+                    case "user":
+                        break;
+                    case "judge":
+                        break;
+                    default:
+                        throw new Error("ERROR: the type must be 'administrator', 'user' or 'judge'.");
+                }
+
+                _type = value;
+            }
+        },
         "username": {
             get: function(){ return _username || ""; },
 
             set: function(value){
                 if(value.length >= 3){
+
+                    // Check if username is allready taken.
+                    if(this.isUsernameTaken(value)) {
+                        throw Error("ERROR: Username is allready taken.");
+                    }
 
                     _username = value;
 
@@ -28,7 +81,7 @@ function User(username, password, email, cellphone){
             set: function(value){
                 if(value.length >= 5){
 
-                    _password = value;
+                    _password = this.encryptString(value);
 
                 } else{
                     throw new Error("ERROR: the password must be at least 5 chars in length.");
@@ -40,9 +93,14 @@ function User(username, password, email, cellphone){
 
             set: function(value){
                 if(value.length > 4 && validateEmail(value)){
+
+                    // Check if username is allready taken.
+                    if(this.isEmailTaken(value)) {
+                        throw Error("ERROR: Email address is allready taken.");
+                    }
+
                     _email = value;
-                }
-                else{
+                } else {
                     throw new Error("ERROR: e-mail address did not validate.");
                 }
             }
@@ -53,78 +111,128 @@ function User(username, password, email, cellphone){
             set: function(value){
                 if(value.length > 4 && isNumeric(value)){
                     _cellphone = value;
-                }
-                else{
+                } else {
                     throw new Error("ERROR: cellphone number must be numeric and at least 5 chars of length.");
                 }
             }
         }
     });
 
-    // Assing default values to object
-    this.startTime = startTime;
-    this.endTime = endTime;
+    // Assign default values to object
+    this.firstname = firstname || "";
+    this.surname = surname || "";
+    this.type = type || "";
+    this.username = username || "" ;
+    this.password = password || "";
+    this.email = email || "";
+    this.cellphone = cellphone || "";
 }
 
-Competition.prototype = {
+User.prototype = {
 
-    constructor: 	Competition,
+    constructor: User,
 
-    addEvent: function(eventObj){
+    encryptString: function(string){
+        return CryptoJS.SHA256(string);
+    },
 
-        // Check that event is an object of right type.
-        if(eventObj !== null && eventObj instanceof Event){
+    isUsernameTaken: function(username) {
+        var userObjArray;
 
-            // Check that event does not start before this competition
-            if (eventObj.startTime < this.startTime) {
-                throw new Error("ERROR: Event.startTime cannot be less than Competition.startTime");
+        if (localStorage.getItem('userObjArray')) {
 
-                // Check that the event does not end after this competition
-            } else if (eventObj.endTime > this.endTime) {
+            // Get userarray for localstorage
+            userObjArray = JSON.parse(localStorage.getItem('userObjArray'));
 
-                throw new Error("ERROR: Event.endTime cannot be higher than Competition.endTime");
-
-                // Check that the event does not have missing properties
-            } else if (
-                eventObj.gymnasticsType === "" ||
-                eventObj.participantsType === "" ||
-                eventObj.participantsGender === "" ||
-                eventObj.isIndividual === "" ||
-                eventObj.isAllRound === "" ||
-                eventObj.judgesArray.length === 0
-            ) {
-                throw new Error("ERROR: Event object has missing properties.");
-            }
-
-            // Check if an identical event exists in the competition or if judge will be double booked
-            this.eventsArray.forEach(function(event) {
-
-                // Check identical
-                if (event.toString() === eventObj.toString()) {
-
-                    console.log(event);
-                    throw new Error("ERROR: Identical Event allready exists in Competition object.")
-                }
-
-                // Check if the judge will be double booked
-                event.judgesArray.forEach(function (judgeObj) {
-                    eventObj.judgesArray.forEach(function (newJudgeObj) {
-                        if (JSON.stringify(judgeObj) === JSON.stringify(newJudgeObj)) {
-                            throw new Error("ERROR: Registered Judge is busy over this period of time.");
-                        }
-                    });
-                });
+            return userObjArray.some(function(userObj) {
+                return userObj.username === username;
             });
-
-            // Add event to array of events
-            this.eventsArray.push(eventObj);
-
-            // Notify event judges.
-            eventObj.notifyJudges();
+        } else {
+            return false;
         }
     },
 
-    save: function(){ // Not implemented
+    isEmailTaken: function(email) {
+        var userObjArray;
 
+        if (localStorage.getItem('userObjArray')) {
+
+            // Get userarray for localstorage
+            userObjArray = JSON.parse(localStorage.getItem('userObjArray'));
+
+            return userObjArray.some(function(userObj) {
+                return userObj.email === email;
+            });
+        } else {
+            return false;
+        }
+    },
+
+    sendEmail: function() {
+        if(this.email !== "") {
+            // Not implemented
+        } else {
+            throw Error("ERROR: cannot send email to user; no e-mail address defined.");
+        }
+    },
+
+    sendSms: function() {
+        if(this.cellphone !== "") {
+            // Not implemented
+        } else {
+            throw Error("ERROR: cannot send sms to user; no cellphone number defined.");
+        }
+    },
+
+    remove: function() {
+        var userObjArray,
+            that = this;
+
+        // Check if localstorage is defined
+        if (!localStorage.getItem('userObjArray')) {
+            return false;
+        }
+
+        userObjArray = JSON.parse(localStorage.getItem('userObjArray'));
+
+        userObjArray.forEach(function(userObj, index) {
+            if (JSON.stringify(that.toSimpleObject) === JSON.stringify(userObj)) {
+                
+            }
+        });
+    },
+
+    save: function () {
+        var userObjArray;
+
+        // Set userarray in localstorage if its not defined.
+        if(!localStorage.getItem('userObjArray')) {
+            localStorage.setItem('userObjArray', JSON.stringify([]));
+        }
+
+        // Get userarray for localstorage
+        userObjArray = JSON.parse(localStorage.getItem('userObjArray'));
+
+        // Check if username is allready taken.
+        if(this.isUsernameTaken(this.username)) {
+            throw Error("ERROR: Username is allready taken.");
+        }
+
+        // Save in localstorage
+        localStorage.setItem('userObjArray', JSON.stringify(this.toSimpleObject()));
+    },
+
+    toSimpleObject: function() {
+        return {
+            firstname: this.firstname,
+            surname: this.surname,
+            username: this.username,
+            password: this.password,
+            email: this.email,
+            cellphone: this.cellphone
+        };
     }
+
+
+
 };

@@ -55,7 +55,7 @@
 	        }
 	    });
 
-	    // Assing default values to object
+	    // Assign default values to object
 	    this.startTime = startTime;
 	    this.endTime = endTime;
 	}
