@@ -131,6 +131,21 @@ describe("Event", function() {
 		);
 	});
 
+    it("should throw an error when created with an endTime that is before startTime", function() {
+        expect(function(){
+            new Event(goodValues.construct.endTime,
+                goodValues.construct.startTime,
+                goodValues.construct.gymnasticsType,
+                goodValues.construct.participantsType,
+                goodValues.construct.participantsGender,
+                goodValues.construct.isIndividual,
+                goodValues.construct.isAllRound,
+                goodValues.construct.judgesArray1
+            )
+        }).toThrow(
+            new Error("ERROR: endTime cannot be before startTime")
+        );
+    });
 
 // Test methods
 	it("should have correct judgesArray after using 'addJudge' method", function() {

@@ -58,7 +58,7 @@ describe("Integration", function() {
 		expect(function(){
 							myCompetition.addEvent(myEvent);
 						}).toThrow(
-							new Error("ERROR: Event object has missing properties")
+							new Error("ERROR: Event object has missing properties.")
 						);
 	});
 

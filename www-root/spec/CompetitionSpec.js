@@ -30,4 +30,13 @@ describe("Competition", function() {
 							)
 		);
 	});
+
+    it("should throw an error when created with an endTime that is before startTime", function() {
+        expect(function(){
+            new Competition(goodValues.construct.endTime, goodValues.construct.startTime)
+        }).toThrow(
+            new Error("ERROR: endTime cannot be before startTime")
+        );
+    });
+
 });

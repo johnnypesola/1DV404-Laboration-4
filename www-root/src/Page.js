@@ -4,7 +4,6 @@
 
 "use strict";
 
-
 function Page() {
 
     var _competitionsArray = [],
@@ -101,15 +100,15 @@ function Page() {
         }
     });
 
-    // Init values
-    this.addCompetitionFormElement = document.getElementById("addCompetitionForm");
-    this.competitionContainerElement = document.getElementById("competition-container");
-    this.competitionSelectElement = document.getElementById("competitions-select");
+    // Init values, create elements, if the do not exists. This allows jasmine tests to run.
+    this.addCompetitionFormElement = document.getElementById("addCompetitionForm") || document.createElement("form");
+    this.competitionContainerElement = document.getElementById("competition-container") || document.createElement("div");
+    this.competitionSelectElement = document.getElementById("competitions-select") || document.createElement("select");
 
-    this.addEventFormElement = document.getElementById("addEventForm");
-    this.addJudgeButtonElement = document.getElementById("add-judge-button");
-    this.judgeContainerElement = document.getElementById("judge-container-element");
-    this.eventContainerElement = document.getElementById("event-container");
+    this.addEventFormElement = document.getElementById("addEventForm") || document.createElement("form");
+    this.addJudgeButtonElement = document.getElementById("add-judge-button") || document.createElement("button");
+    this.judgeContainerElement = document.getElementById("judge-container-element") || document.createElement("div");
+    this.eventContainerElement = document.getElementById("event-container") || document.createElement("div");
 
     // Methods
     this.addCompetitionFunctionality = function () {
@@ -159,7 +158,13 @@ function Page() {
             );
 
             // Create new competition
-            that.addCompetition(new Competition(startDate.getTime(), endDate.getTime()));
+            try {
+                that.addCompetition(new Competition(startDate.getTime(), endDate.getTime()));
+            } catch (error) {
+                alert(error);
+                return false;
+            }
+
 
             // Render competitions
             that.renderCompetitions();
@@ -209,6 +214,15 @@ function Page() {
     };
 
     this.addCompetition = function(competitionObj) {
+
+        // Check that this same competition does not exist allready.
+
+        this.competitionsArray.forEach(function(compObj){
+            if(compObj.toString() === competitionObj.toString()) {
+                throw Error("ERROR: Two competitions that are exactly the same cannot exists.");
+            }
+        });
+
         this.competitionsArray.push(competitionObj);
     };
 
@@ -299,20 +313,21 @@ function Page() {
                 return false;
             }
 
-            // Create new Event object
-            eventObj = new Event(
-                startDate.getTime(),
-                endDate.getTime(),
-                formElement.elements['gymnastics-type'].value,
-                formElement.elements['participants-type'].value,
-                formElement.elements['participants-gender'].value,
-                (formElement.elements['is-individual'].value === "true"),
-                (formElement.elements['is-allround'].value === "true"),
-                judgesArray
-            );
 
-            // Create new event in competition
             try {
+                // Create new Event object
+                eventObj = new Event(
+                    startDate.getTime(),
+                    endDate.getTime(),
+                    formElement.elements['gymnastics-type'].value,
+                    formElement.elements['participants-type'].value,
+                    formElement.elements['participants-gender'].value,
+                    (formElement.elements['is-individual'].value === "true"),
+                    (formElement.elements['is-allround'].value === "true"),
+                    judgesArray
+                );
+
+                // Add new event in competition
                 that.competitionsArray[formElement['competitions-select'].value].addEvent(eventObj);
             } catch (error) {
                 alert(error);
@@ -343,7 +358,7 @@ function Page() {
             competitionContainer.classList.add("competition-container");
 
             // Append text to competition container
-            competitionContainer.innerHTML = competitionObj.startTime.toCustomString() + " &#8594; " + competitionObj.endTime.toCustomString();
+            competitionContainer.innerHTML = "Tävling: " + competitionObj.startTime.toCustomString() + " &#8594; " + competitionObj.endTime.toCustomString();
 
             competitionObj.eventsArray.forEach(function(eventObj) {
 
@@ -356,13 +371,14 @@ function Page() {
                     judgesContainer.innerHTML += judgeObj.name + ", ";
                 });
 
-                eventContainer.innerHTML = eventObj.startTime.toCustomString() + " &#8594; " + eventObj.endTime.toCustomString()
+                eventContainer.innerHTML = "<span>Deltävling</span><br>"
+                    + eventObj.startTime.toCustomString() + " &#8594; " + eventObj.endTime.toCustomString()
                     + "<br>Tävlingsgren: <span>" + eventObj.gymnasticsType + "</span>"
                     + "<br>Junior/Senior: <span>" + eventObj.participantsType + "</span>"
                     + "<br>Kön: <span>" + eventObj.participantsGender + "</span>"
                     + "<br>Individuell: <span>" + (eventObj.isIndividual === true ? "Ja" : "Nej") + "</span>"
                     + "<br>Allround: <span>" + (eventObj.isAllRound === true ? "Ja" : "Nej") + "</span>"
-                    + "<br>Domare: <span>" + judgesContainer.innerHTML  + "</span>";
+                    + "<br>Domare: <span>" + judgesContainer.innerHTML.substring(0, judgesContainer.innerHTML.length - 2)  + "</span>";
 
                 // startTime, endTime, gymnasticsType, participantsType, participantsGender, isIndividual, isAllRound, judgesArray
 

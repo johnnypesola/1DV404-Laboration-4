@@ -28,6 +28,12 @@
 	            set: function(value){
 	            	var parsedValue = parseFloat(value);
 	                if(value !== null && (!isNaN(parsedValue) && isFinite(parsedValue) && parsedValue >= _MIN_TIMESTAMP && parsedValue % 1 === 0 && value == parsedValue)){
+
+                        // Check that endTime is not before startTime
+                        if(this.startTime && this.startTime > value) {
+                            throw new Error("ERROR: endTime cannot be before startTime");
+                        }
+
 	                    _endTime = new Date(value);
 	                }
 	                else{
@@ -111,10 +117,6 @@
 				eventObj.notifyJudges();
 			}
     	},
-
-        checkEvent: function(eventObj) {
-
-        },
 
     	save: function(){ // Not implemented
 

@@ -33,6 +33,11 @@
 	            set: function(value){
 	            	var parsedValue = parseFloat(value);
 	                if(value !== null && (!isNaN(parsedValue) && isFinite(parsedValue) && parsedValue >= _MIN_TIMESTAMP && parsedValue % 1 === 0 && value == parsedValue)){
+
+                        // Check that endTime is not before startTime
+                        if(this.startTime && this.startTime > value) {
+                            throw new Error("ERROR: endTime cannot be before startTime");
+                        }
 	                    _endTime = new Date(value);
 	                }
 	                else{
@@ -175,7 +180,7 @@
     	},
 
         toString: function() {
-            return "startTime: " + this.startTime + " endTime: " + this.endTime + " gymnasticsType: " + this.gymnasticsType + " pacticipantsType: " + this.participantsType + " participantsGender: " + this.participantsGender + " isIndividual: " + this.isIndividual + " isAllRound: " + this.isAllRound + " judges: " + JSON.stringify(this.judgesArray);
+            return "startTime: " + this.startTime + " endTime: " + this.endTime + " gymnasticsType: " + this.gymnasticsType + " pacticipantsType: " + this.participantsType + " participantsGender: " + this.participantsGender + " isIndividual: " + this.isIndividual + " isAllRound: " + this.isAllRound;
         }
 
     };
