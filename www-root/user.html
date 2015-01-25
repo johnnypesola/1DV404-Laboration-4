@@ -5,6 +5,7 @@
 
         <script type="text/javascript" src="src/extensions.js"></script>
         <script type="text/javascript" src="lib/cryptojs/rollups/sha256.js"></script>
+        <script type="text/javascript" src="src/UserMain.js"></script>
         <script type="text/javascript" src="src/User.js"></script>
         <script type="text/javascript" src="src/UserPage.js"></script>
 
@@ -29,7 +30,7 @@
 
                 <h3>Ange användaruppgifter</h3>
                 Användartyp:
-                <select name="type">
+                <select name="usertype">
                     <option value="user">Användare</option>
                     <option value="judge">Domare</option>
                     <option value="administrator">Administratör</option>
@@ -76,6 +77,8 @@
             <form id="editUserForm" class="white-box float-left hidden">
 
             </form>
+
+            <div class="clear-fix"></div>
         </div>
     </div>
     </body>

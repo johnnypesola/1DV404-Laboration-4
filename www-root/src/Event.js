@@ -87,7 +87,6 @@
 	            set: function(value){
 	                if(value !== null && typeof value === "boolean"){
 	                    _isIndividual = value;
-	                    //console.log(value + " " + isIndividual);
 	                }
 	                else{
 	                    throw new Error("ERROR: isIndividual must be a boolean");
@@ -112,8 +111,6 @@
 	            set: function(value){
 	                if(value !== null && value instanceof Array){
 	                    _judgesArray = value;
-
-                        console.log(value);
 	                }
 	                else{
 	                    throw new Error("ERROR: judgesArray must be an array");

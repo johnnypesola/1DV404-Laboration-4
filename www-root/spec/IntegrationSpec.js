@@ -4,7 +4,6 @@ describe("Integration", function() {
 	// Load fixtures
 	values = getJSONFixture('integration_values.json');
 
-	console.log(values);
 
 	it("should throw an error when Competition.addEvent(Event) and Event.startTime < Competition.startTime", function() {
 

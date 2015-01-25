@@ -96,7 +96,6 @@
                     // Check identical
                     if (event.toString() === eventObj.toString()) {
 
-                        console.log(event);
                         throw new Error("ERROR: Identical Event allready exists in Competition object.")
                     }
 

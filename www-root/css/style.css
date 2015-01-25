@@ -25,6 +25,14 @@ div.clear-fix {
     clear: both;;
 }
 
+.left {
+    float: left !important;
+}
+
+.right {
+    float: right !important;
+}
+
 .hidden {
     display: none !important;
 }
