@@ -297,11 +297,11 @@
             this.editUserFormElement.appendChild(document.createElement("br"));
             this.editUserFormElement.appendChild(document.createElement("br"));
 
-            this.editUserFormElement.appendChild(document.createTextNode("E-post adress: "));
+            this.editUserFormElement.appendChild(document.createTextNode("E-postadress: "));
             this.editUserFormElement.appendChild(emailInput);
             this.editUserFormElement.appendChild(document.createElement("br"));
 
-            this.editUserFormElement.appendChild(document.createTextNode("Mobiltelefon nummer: "));
+            this.editUserFormElement.appendChild(document.createTextNode("Mobiltelefonnummer: "));
             this.editUserFormElement.appendChild(cellphoneInput);
             this.editUserFormElement.appendChild(document.createElement("br"));
 
@@ -353,7 +353,7 @@
             var returnValue = false,
                 i;
 
-            for (i = 0; i < this.runningApps.length; i++) {
+            for (i = 0; i < this.userObjArray.length; i++) {
                 if (this.userObjArray[i].UID === targetUID) {
                     returnValue = this.userObjArray[i];
                     break;

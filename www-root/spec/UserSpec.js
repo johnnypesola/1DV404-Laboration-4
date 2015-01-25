@@ -30,7 +30,7 @@ describe("User", function() {
                 surname: goodValues.construct.surname,
                 usertype: goodValues.construct.usertype,
                 username: goodValues.construct.username,
-                password: CryptoJS.SHA256(goodValues.construct.password),
+                password: CryptoJS.SHA256(goodValues.construct.password).toString(),
                 email: goodValues.construct.email,
                 cellphone: goodValues.construct.cellphone
             }
@@ -315,11 +315,7 @@ describe("User", function() {
 
         user.save();
 
-//        console.log(JSON.parse( localStorage.getItem('userObjArray') ));
-
-//        console.log([user.toSimpleObject()]);
-
-        expect(JSON.parse( localStorage.getItem('userObjArray') ) === [user.toSimpleObject()] ).toBe(true);
+        expect(localStorage.getItem('userObjArray') === JSON.stringify([user.toSimpleObject()]) ).toBe(true);
     });
 
 /*

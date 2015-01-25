@@ -21,7 +21,7 @@ function User (UID, firstname, surname, usertype, username, password, email, cel
                     throw new Error("ERROR: 'UID' is already set)");
                 }
 
-                if (value.match(/[0-9a-zA-Z]{8}\-[0-9a-zA-Z]{4}\-[0-9a-zA-Z]{4}\-[0-9a-zA-Z]{4}\-[0-9a-zA-Z]{12}/) === null) {
+                if (!(value.match) || value.match(/[0-9a-zA-Z]{8}\-[0-9a-zA-Z]{4}\-[0-9a-zA-Z]{4}\-[0-9a-zA-Z]{4}\-[0-9a-zA-Z]{12}/) === null) {
                     throw new Error("ERROR: 'UID' property must be an valid UID. (xxxxxxxx-xxxx-4xxx-xxxx-xxxxxxxxxxxx)");
                 }
 
@@ -151,7 +151,8 @@ User.prototype = {
     constructor: User,
 
     encryptString: function(string){
-        return CryptoJS.SHA256(string);
+
+        return CryptoJS.SHA256(string).toString();
     },
 
     isUsernameTaken: function(username) {
@@ -194,17 +195,20 @@ User.prototype = {
         }
     },
 
-    sendEmail: function() {
-        if(this.email !== "") {
-            // Not implemented
+    sendEmail: function(string, alternativeEmailAdress) {
+        var emailAdress = alternativeEmailAdress || this.email;
+        if(emailAdress !== "") {
+            return true;
         } else {
             throw Error("ERROR: cannot send email to user; no e-mail address defined.");
         }
     },
 
-    sendSms: function() {
-        if(this.cellphone !== "") {
-            // Not implemented
+    sendSms: function(string, alternativePhoneNumber) {
+        var phoneNumber = alternativePhoneNumber || this.cellphone;
+
+        if(phoneNumber !== "") {
+            return true;
         } else {
             throw Error("ERROR: cannot send sms to user; no cellphone number defined.");
         }
@@ -229,9 +233,8 @@ User.prototype = {
         // Find user object and remove it from array.
         for(i = 0; i < userObjArray.length; i++) {
 
-            //console.log(JSON.stringify(that.toSimpleObject()) + "\n" + JSON.stringify(userObjArray[i]));
+            if(JSON.stringify(that.toSimpleObject()) === JSON.stringify(userObjArray[i])){
 
-            if(JSON.stringify(that.toSimpleObject) === JSON.stringify(userObjArray[i])){
                 userObjArray.splice(index, 1);
                 break;
             }
