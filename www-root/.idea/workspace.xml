@@ -61,8 +61,8 @@
       <file leaf-file-name="ResetPasswordPage.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/ResetPasswordPage.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.65600884" vertical-offset="0" max-vertical-offset="907">
-              <caret line="103" column="26" selection-start-line="103" selection-start-column="4" selection-end-line="103" selection-end-column="26" />
+            <state vertical-scroll-proportion="0.67475194" vertical-offset="0" max-vertical-offset="907">
+              <caret line="112" column="2" selection-start-line="112" selection-start-column="2" selection-end-line="112" selection-end-column="2" />
               <folding>
                 <element signature="e#354#813#0" expanded="false" />
                 <element signature="e#1188#3148#0" expanded="false" />
@@ -109,16 +109,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0" vertical-offset="1086" max-vertical-offset="2210">
               <caret line="120" column="113" selection-start-line="120" selection-start-column="113" selection-end-line="120" selection-end-column="113" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="bad_values.json" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/spec/fixtures/bad_values.json">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="102">
-              <caret line="0" column="62" selection-start-line="0" selection-start-column="62" selection-end-line="0" selection-end-column="92" />
               <folding />
             </state>
           </provider>
@@ -522,8 +512,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ResetPasswordPage.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.65600884" vertical-offset="0" max-vertical-offset="907">
-          <caret line="103" column="26" selection-start-line="103" selection-start-column="4" selection-end-line="103" selection-end-column="26" />
+        <state vertical-scroll-proportion="0.67475194" vertical-offset="0" max-vertical-offset="907">
+          <caret line="112" column="2" selection-start-line="112" selection-start-column="2" selection-end-line="112" selection-end-column="2" />
           <folding>
             <element signature="e#354#813#0" expanded="false" />
             <element signature="e#1188#3148#0" expanded="false" />
